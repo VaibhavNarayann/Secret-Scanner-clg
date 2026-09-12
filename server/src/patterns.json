@@ -1,0 +1,9 @@
+[
+  {
+    "id": "aws_access_key",
+    "name": "AWS Access Key ID",
+    "regex": "AKIA[0-9A-Z]{16}",
+    "flags": "g",
+    "severity": "critical"
+  }
+]
