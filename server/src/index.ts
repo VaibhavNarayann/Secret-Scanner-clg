@@ -25,8 +25,10 @@ interface Finding {
   const findings: Finding[] = [];
 
   for (const rule of patterns) {
-    const re = new RegExp(rule.regex, rule.flags);
-    let match: RegExpExecArray | null;
+    const re = new RegExp(rule.regex, rule.flags); //new RegExp(...) this is the constructor function 
+    //it build living search tool out of regular text string. 
+
+    let match: RegExpExecArray | null; // RegExpExecArray is a specialized array returned by the re.exec(line) when a successful match is found..
 
     while ((match = re.exec(line)) !== null) {
       findings.push({
@@ -46,5 +48,4 @@ interface Finding {
 
 
 const result = scanLineForSignatures("const key = 'AKIA123IURHASBFAISDF';", 1);
-
 console.log(result);
