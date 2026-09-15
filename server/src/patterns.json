@@ -1,3 +1,5 @@
+//Underneath schema to detect secrets such as  (access key, jwt token, password, and etc 
+
 [
   {
     "id": "aws_access_key",
@@ -5,5 +7,75 @@
     "regex": "AKIA[0-9A-Z]{16}",
     "flags": "g",
     "severity": "critical"
+  },
+  {
+    "id": "aws_secret_key",
+    "name": "AWS Secret Access Key (heuristic)",
+    "regex": "aws(.{0,20})?(secret|access)?_?key(.{0,20})?['\"]\\s*[:=]\\s*['\"][0-9a-zA-Z/+]{40}['\"]",
+    "flags": "gi",
+    "severity": "critical"
+  },
+  {
+    "id": "github_token",
+    "name": "GitHub Personal Access Token",
+    "regex": "gh[pousr]_[A-Za-z0-9]{36,255}",
+    "flags": "g",
+    "severity": "critical"
+  },
+  {
+    "id": "slack_token",
+    "name": "Slack Token",
+    "regex": "xox[baprs]-[0-9A-Za-z-]{10,72}",
+    "flags": "g",
+    "severity": "high"
+  },
+  {
+    "id": "slack_webhook",
+    "name": "Slack Webhook URL",
+    "regex": "https://hooks\\.slack\\.com/services/T[0-9A-Za-z]{8,10}/B[0-9A-Za-z]{8,10}/[0-9A-Za-z]{24}",
+    "flags": "g",
+    "severity": "high"
+  },
+  {
+    "id": "stripe_key",
+    "name": "Stripe API Key",
+    "regex": "(sk|rk|pk)_(live|test)_[0-9a-zA-Z]{24,99}",
+    "flags": "g",
+    "severity": "critical"
+  },
+  {
+    "id": "google_api_key",
+    "name": "Google API Key",
+    "regex": "AIza[0-9A-Za-z\\-_]{35}",
+    "flags": "g",
+    "severity": "high"
+  },
+  {
+    "id": "private_key_header",
+    "name": "Private Key Block",
+    "regex": "-----BEGIN ((RSA|EC|DSA|OPENSSH|PGP) )?PRIVATE KEY-----",
+    "flags": "g",
+    "severity": "critical"
+  },
+  {
+    "id": "jwt",
+    "name": "JSON Web Token",
+    "regex": "eyJ[A-Za-z0-9_-]{5,}\\.eyJ[A-Za-z0-9_-]{5,}\\.[A-Za-z0-9_-]{5,}",
+    "flags": "g",
+    "severity": "medium"
+  },
+  {
+    "id": "generic_env_secret",
+    "name": "Generic .env-style secret assignment",
+    "regex": "(api[_-]?key|secret|token|password|passwd|pwd)\\s*[:=]\\s*['\"]?[A-Za-z0-9_\\-/+=]{12,}['\"]?",
+    "flags": "gi",
+    "severity": "medium"
+  },
+  {
+    "id": "generic_basic_auth",
+    "name": "URL with embedded credentials",
+    "regex": "[a-zA-Z][a-zA-Z0-9+.-]*://[^/\\s:@]+:[^/\\s:@]+@[^/\\s]+",
+    "flags": "g",
+    "severity": "high"
   }
 ]
